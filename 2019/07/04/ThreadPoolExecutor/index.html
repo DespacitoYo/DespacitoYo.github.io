@@ -3,22 +3,22 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>Despacito</title>
+  <title>ThreadPoolExecutor | Despacito</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Despacito's Blog">
   
   <meta name="description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Despacito">
+<meta property="og:title" content="ThreadPoolExecutor">
 <meta property="og:url" content="github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/index.html">
 <meta property="og:site_name" content="Despacito">
 <meta property="og:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/ThreadPool.jpg">
-<meta property="og:updated_time" content="2019-07-04T09:32:46.022Z">
+<meta property="og:updated_time" content="2019-07-04T09:38:50.454Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Despacito">
+<meta name="twitter:title" content="ThreadPoolExecutor">
 <meta name="twitter:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta name="twitter:image" content="github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/ThreadPool.jpg">
   
@@ -103,9 +103,42 @@
         <section id="main" class="body-wrap"><article id="post-ThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      ThreadPoolExecutor
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-07-04
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
     <div class="article-entry post-content" itemprop="articleBody">
       
             
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img fancybox" href="/ThreadPool.jpg" rel="gallery_cjxoha12h0000l4n2d3wcaq47">
+        <img src="/ThreadPool.jpg" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
             <h2 id="1-创建线程池（ThreadPoolExecutor）"><a href="#1-创建线程池（ThreadPoolExecutor）" class="headerlink" title="1 创建线程池（ThreadPoolExecutor）"></a>1 创建线程池（ThreadPoolExecutor）</h2><p>ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public ThreadPoolExecutor(int corePoolSize,</span><br><span class="line">                          int maximumPoolSize,</span><br><span class="line">                          long keepAliveTime,</span><br><span class="line">                          TimeUnit unit,</span><br><span class="line">                          BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                          ThreadFactory threadFactory,</span><br><span class="line">                          RejectedExecutionHandler handler) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -144,8 +177,8 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月04日 17:32</p>
-        <p>原始链接： <a class="post-url" href="/2019/07/04/ThreadPoolExecutor/" title="">github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/</a></p>
+        <p>最后更新： 2019年07月04日 17:38</p>
+        <p>原始链接： <a class="post-url" href="/2019/07/04/ThreadPoolExecutor/" title="ThreadPoolExecutor">github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/</a></p>
         <footer>
             <a href="github.com/madlives/madlives.github.io">
                 <img src="/images/logo.png" alt="Despacito">
@@ -171,7 +204,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&title=Despacito&pic=github.com/madlives/madlives.github.ioimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&title=《ThreadPoolExecutor》 — Despacito&pic=github.com/madlives/madlives.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -181,7 +214,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&title=Despacito&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&title=《ThreadPoolExecutor》 — Despacito&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
@@ -191,7 +224,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Despacito&url=github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&via=github.com/madlives/madlives.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadPoolExecutor》 — Despacito&url=github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&via=github.com/madlives/madlives.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
