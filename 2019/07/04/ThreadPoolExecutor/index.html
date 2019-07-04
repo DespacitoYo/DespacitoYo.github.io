@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="Despacito">
 <meta property="og:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/ThreadPool.jpg">
-<meta property="og:updated_time" content="2019-07-04T09:43:10.854Z">
+<meta property="og:image" content="https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPool.jpg">
+<meta property="og:updated_time" content="2019-07-04T09:54:46.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadPoolExecutor">
 <meta name="twitter:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
-<meta name="twitter:image" content="https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/ThreadPool.jpg">
+<meta name="twitter:image" content="https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPool.jpg">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -129,6 +129,16 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img fancybox" href="/../ThreadPool.jpg" rel="gallery_cjxohuyfc000094n2egeak3yb">
+        <img src="/../ThreadPool.jpg" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
             <h2 id="1-创建线程池（ThreadPoolExecutor）"><a href="#1-创建线程池（ThreadPoolExecutor）" class="headerlink" title="1 创建线程池（ThreadPoolExecutor）"></a>1 创建线程池（ThreadPoolExecutor）</h2><p>ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public ThreadPoolExecutor(int corePoolSize,</span><br><span class="line">                          int maximumPoolSize,</span><br><span class="line">                          long keepAliveTime,</span><br><span class="line">                          TimeUnit unit,</span><br><span class="line">                          BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                          ThreadFactory threadFactory,</span><br><span class="line">                          RejectedExecutionHandler handler) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -167,7 +177,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月04日 17:43</p>
+        <p>最后更新： 2019年07月04日 17:54</p>
         <p>原始链接： <a class="post-url" href="/2019/07/04/ThreadPoolExecutor/" title="ThreadPoolExecutor">https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/</a></p>
         <footer>
             <a href="https://github.com/madlives/madlives.github.io">
