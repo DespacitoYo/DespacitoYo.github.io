@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>ThreadPoolExecutor | Despacito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Despacito's Blog">
+  
+  <meta name="description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThreadPoolExecutor">
+<meta property="og:url" content="https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/index.html">
+<meta property="og:site_name" content="Despacito">
+<meta property="og:description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-05T02:08:23.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ThreadPoolExecutor">
+<meta name="twitter:description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Despacito&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Despacito&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        心之所向，即为远方
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Despacito" target="_blank" href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/madlives">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-ScheduledThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      ThreadPoolExecutor
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-07-05
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="1-创建ScheduledThreadPoolExecutor"><a href="#1-创建ScheduledThreadPoolExecutor" class="headerlink" title="1. 创建ScheduledThreadPoolExecutor"></a>1. 创建ScheduledThreadPoolExecutor</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延时后执行任务。ScheduledThreadPoolExecutor的功能与Timer类似，但ScheduledThreadPoolExecutor功能更强大、更灵活。Timer对应的是单个后台线程，而ScheduledThreadPoolExecutor可以多线程执行，所以ScheduledThreadPoolExecutor是比Timer更优的选择。</p>
+<pre><code>public class ScheduledThreadPoolExecutor
+    extends ThreadPoolExecutor
+    implements ScheduledExecutorService {  
+    public ScheduledThreadPoolExecutor(int corePoolSize,
+                                   ThreadFactory threadFactory,
+                                   RejectedExecutionHandler handler) {
+        super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
+          new DelayedWorkQueue(), threadFactory, handler);
+    }
+}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从构造函数可以看出ScheduledThreadPoolExecutor还是调用的父类ThreadPoolExecutor的构造方式，其中最大线程数固定为Integer.MAX_VALUE，空闲时间固定为0，工作队列固定为DelayedWorkQueue。DelayedWorkQueue是一个无界队列，故最大线程数并没有什么意义。</p>
+<h4 id="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："><a href="#Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：" class="headerlink" title="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："></a>Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：</h4><h5 id="1-newScheduledThreadPool"><a href="#1-newScheduledThreadPool" class="headerlink" title="1. newScheduledThreadPool"></a>1. newScheduledThreadPool</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只指定核心线程数，使用默认的线程工厂以及拒绝策略，最多创建corePoolSize个线程。</p>
+<pre><code>public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
+    return new ScheduledThreadPoolExecutor(corePoolSize);
+}</code></pre><h5 id="2-newSingleThreadScheduledExecutor"><a href="#2-newSingleThreadScheduledExecutor" class="headerlink" title="2. newSingleThreadScheduledExecutor"></a>2. newSingleThreadScheduledExecutor</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;核心线程数为1，使用默认的线程工厂以及拒绝策略，单线程的newScheduledThreadPool。</p>
+<pre><code>public static ScheduledExecutorService newSingleThreadScheduledExecutor() {
+    return new DelegatedScheduledExecutorService
+        (new ScheduledThreadPoolExecutor(1));
+}</code></pre><h2 id="2-核心思想"><a href="#2-核心思想" class="headerlink" title="2. 核心思想"></a>2. 核心思想</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledThreadPoolExecutor的基本实现依赖于ThreadPoolExecutor，只不过用了特殊的工作队列DelayedWorkQueue（一种基于堆实现的优先队列，类似PriorityQueue），DelayedWorkQueue的队首始终为执行时间最早的一个任务，当worker线程调用DelayedWorkQueue.take()方法时，如果队首任务的执行时间大于当前时间则会返回空，直到当前时间大于等于执行时间才将队首的任务返回，然后worker线程就执行该任务，如果是周期性任务，则执行后根据执行频率重新计算下次执行时间后再放入DelayedWorkQueue中。</p>
+<h2 id="3-核心方法"><a href="#3-核心方法" class="headerlink" title="3. 核心方法"></a>3. 核心方法</h2><h5 id="1-schedule方法"><a href="#1-schedule方法" class="headerlink" title="1. schedule方法"></a>1. schedule方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schedule有两个重载方法，一个用于执行Runnable任务，一个用于执行Callable任务，command为要执行的任务，delay为延时执行的时间，unit为延时执行的时间单位。二者都是先将任务封装为一个RunnableScheduledFuture对象（实际上就是ScheduledFutureTask），然后放入DelayedWorkQueue队列中，等待时间线程池中的线程从队列中获取任务并执行。Callable与Runnable的区别在于，Callable可以通过调用FutureTask.get()来获取执行结果，不过该方法会阻塞主线程直到获得结果。</p>
+<pre><code>public ScheduledFuture&lt;?&gt; schedule(Runnable command,
+                                   long delay,
+                                   TimeUnit unit) {
+    if (command == null || unit == null)
+        throw new NullPointerException();
+    RunnableScheduledFuture&lt;?&gt; t = decorateTask(command,
+        new ScheduledFutureTask&lt;Void&gt;(command, null,
+                                      triggerTime(delay, unit)));
+    delayedExecute(t);
+    return t;
+}
+
+public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
+                                       long delay,
+                                       TimeUnit unit) {
+    if (callable == null || unit == null)
+        throw new NullPointerException();
+    RunnableScheduledFuture&lt;V&gt; t = decorateTask(callable,
+        new ScheduledFutureTask&lt;V&gt;(callable,
+                                   triggerTime(delay, unit)));
+    delayedExecute(t);
+    return t;
+}</code></pre><h5 id="2-scheduleAtFixedRate方法"><a href="#2-scheduleAtFixedRate方法" class="headerlink" title="2. scheduleAtFixedRate方法"></a>2. scheduleAtFixedRate方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduleAtFixedRate用于执行固定频率（时间间隔）的任务，command为要执行的任务，initialDelay为第一次执行的延迟时间，period为后面每次执行的时间间隔，unit为时间单位。与schedule方法一样，scheduleAtFixedRate方法也是通过创建一个RunnableScheduledFuture对象（实际上就是ScheduledFutureTask），然后放入DelayedWorkQueue队列中，等待时间线程池中的线程从队列中获取任务并执行。区别在于首次调用scheduleAtFixedRate方法时会在initialDelay时间之后首次执行任务，之后每次根据当前执行时间延迟period时间执行，所以每次执行的时间大致是能确定的。</p>
+<pre><code>public ScheduledFuture&lt;?&gt; scheduleAtFixedRate(Runnable command,
+                                              long initialDelay,
+                                              long period,
+                                              TimeUnit unit) {
+    if (command == null || unit == null)
+        throw new NullPointerException();
+    if (period &lt;= 0)
+        throw new IllegalArgumentException();
+    ScheduledFutureTask&lt;Void&gt; sft =
+        new ScheduledFutureTask&lt;Void&gt;(command,
+                                      null,
+                                      triggerTime(initialDelay, unit),
+                                      unit.toNanos(period));
+    RunnableScheduledFuture&lt;Void&gt; t = decorateTask(command, sft);
+    sft.outerTask = t;
+    delayedExecute(t);
+    return t;
+}</code></pre><h5 id="3-scheduleWithFixedDelay方法"><a href="#3-scheduleWithFixedDelay方法" class="headerlink" title="3. scheduleWithFixedDelay方法"></a>3. scheduleWithFixedDelay方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduleWithFixedDelay也是用于执行固定频率的任务，与scheduleAtFixedRate方法不同的是，scheduleWithFixedDelay是在任务执行完成之后的时间加上delay时间延迟执行的，所以每次执行的时间不是确定的（因为不知道任务要执行多久），但间隔是确定的。其他的同scheduleAtFixedRate方法。</p>
+<pre><code>public ScheduledFuture&lt;?&gt; scheduleWithFixedDelay(Runnable command,
+                                                 long initialDelay,
+                                                 long delay,
+                                                 TimeUnit unit) {
+    if (command == null || unit == null)
+        throw new NullPointerException();
+    if (delay &lt;= 0)
+        throw new IllegalArgumentException();
+    ScheduledFutureTask&lt;Void&gt; sft =
+        new ScheduledFutureTask&lt;Void&gt;(command,
+                                      null,
+                                      triggerTime(initialDelay, unit),
+                                      unit.toNanos(-delay));
+    RunnableScheduledFuture&lt;Void&gt; t = decorateTask(command, sft);
+    sft.outerTask = t;
+    delayedExecute(t);
+    return t;
+}</code></pre><h5 id="4-delayedExecute方法"><a href="#4-delayedExecute方法" class="headerlink" title="4. delayedExecute方法"></a>4. delayedExecute方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为ScheduledThreadPoolExecutor是用于执行定时或周期性任务的线程池，所以每次提交任务都是直接放入工作队列而不是直接执行，故每次提交任务会创建空的工作线程直到线程池中的线程数达到核心线程数，然后每个线程都是通过循环调用take()方法去队列中获取任务然后执行。</p>
+<pre><code>private void delayedExecute(RunnableScheduledFuture&lt;?&gt; task) {
+    //如果线程池已停止运行，则执行拒绝策略
+    if (isShutdown())
+        reject(task);
+    else {
+        //将任务加入工作队列
+        super.getQueue().add(task);
+        //再次确认线程池状态，如果是停止状态则将task从工作队列移除，然后取消任务但不中断执行线程
+        if (isShutdown() &amp;&amp;
+            !canRunInCurrentRunState(task.isPeriodic()) &amp;&amp;
+            remove(task))
+            task.cancel(false);
+        else
+            // 该方法在ThreadPoolExecutor中实现，是为了确保线程池中至少有一个线程启动，即使corePoolSize为0
+            // 在这里是每次添加任务都会创建一个线程，直到线程池中的线程数达到核心线程数
+            ensurePrestart();
+    }
+}</code></pre><h2 id="4-重要内部类"><a href="#4-重要内部类" class="headerlink" title="4. 重要内部类"></a>4. 重要内部类</h2><h5 id="1-ScheduledFutureTask"><a href="#1-ScheduledFutureTask" class="headerlink" title="1. ScheduledFutureTask"></a>1. ScheduledFutureTask</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledFutureTask继承自FutureTask实现了RunnableScheduledFuture接口，它的time属性代表了该任务的执行时间，sequenceNumber代表了该任务加入ScheduledThreadPoolExecutor的序号，period代表了任务执行的时间间隔。</p>
+<pre><code>private class ScheduledFutureTask&lt;V&gt;
+        extends FutureTask&lt;V&gt; implements RunnableScheduledFuture&lt;V&gt; {
+    //添加到ScheduledThreadPoolExecutor中的序号
+    private final long sequenceNumber;
+    //这个任务要被执行的具体时间
+    private long time;
+    //任务执行的时间间隔
+    private final long period;
+    /** The actual task to be re-enqueued by reExecutePeriodic */
+    RunnableScheduledFuture&lt;V&gt; outerTask = this;
+    //在DelayedWorkQueue中的索引，方便快速取消任务
+    int heapIndex;
+}    </code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledFutureTask重写了compareTo方法，首先通过time来比较大小，如果time相同，则跟据sequenceNumber的大小来进行判断。这里主要是为了方便DelayedWorkQueue排序用。</p>
+<pre><code>public int compareTo(Delayed other) {
+        if (other == this) // compare zero if same object
+            return 0;
+        if (other instanceof ScheduledFutureTask) {
+            ScheduledFutureTask&lt;?&gt; x = (ScheduledFutureTask&lt;?&gt;)other;
+            long diff = time - x.time;
+            if (diff &lt; 0)
+                return -1;
+            else if (diff &gt; 0)
+                return 1;
+            else if (sequenceNumber &lt; x.sequenceNumber)
+                return -1;
+            else
+                return 1;
+        }
+        long diff = getDelay(NANOSECONDS) - other.getDelay(NANOSECONDS);
+        return (diff &lt; 0) ? -1 : (diff &gt; 0) ? 1 : 0;
+    }</code></pre><h5 id="2-DelayedWorkQueue"><a href="#2-DelayedWorkQueue" class="headerlink" title="2. DelayedWorkQueue"></a>2. DelayedWorkQueue</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年07月05日 10:08</p>
+        <p>原始链接： <a class="post-url" href="/J.U.C/ScheduledThreadPoolExecutor/" title="ThreadPoolExecutor">https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/</a></p>
+        <footer>
+            <a href="https://madlives.github.io">
+                <img src="/images/logo.png" alt="Despacito">
+                Despacito
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/&title=《ThreadPoolExecutor》 — Despacito&pic=https://madlives.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/&title=《ThreadPoolExecutor》 — Despacito&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadPoolExecutor》 — Despacito&url=https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/&via=https://madlives.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-创建ScheduledThreadPoolExecutor"><span class="post-toc-text">1. 创建ScheduledThreadPoolExecutor</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："><span class="post-toc-text">Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-newScheduledThreadPool"><span class="post-toc-text">1. newScheduledThreadPool</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-newSingleThreadScheduledExecutor"><span class="post-toc-text">2. newSingleThreadScheduledExecutor</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-核心思想"><span class="post-toc-text">2. 核心思想</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-核心方法"><span class="post-toc-text">3. 核心方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-schedule方法"><span class="post-toc-text">1. schedule方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-scheduleAtFixedRate方法"><span class="post-toc-text">2. scheduleAtFixedRate方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-scheduleWithFixedDelay方法"><span class="post-toc-text">3. scheduleWithFixedDelay方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-delayedExecute方法"><span class="post-toc-text">4. delayedExecute方法</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-重要内部类"><span class="post-toc-text">4. 重要内部类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-ScheduledFutureTask"><span class="post-toc-text">1. ScheduledFutureTask</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-DelayedWorkQueue"><span class="post-toc-text">2. DelayedWorkQueue</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/J.U.C/ThreadPoolExecutor/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">ThreadPoolExecutor</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Despacito<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://madlives.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
