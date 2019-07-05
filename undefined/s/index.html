@@ -11,16 +11,14 @@
   <meta name="description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThreadPoolExecutor">
-<meta property="og:url" content="https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/index.html">
+<meta property="og:url" content="https://madlives.github.io/undefined/s/index.html">
 <meta property="og:site_name" content="Despacito">
 <meta property="og:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPool.jpg">
-<meta property="og:updated_time" content="2019-07-04T09:54:46.338Z">
+<meta property="og:updated_time" content="2019-07-04T09:47:21.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadPoolExecutor">
 <meta name="twitter:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
-<meta name="twitter:image" content="https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPool.jpg">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -100,7 +98,7 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-ThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-s" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -129,16 +127,6 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img fancybox" href="/../ThreadPool.jpg" rel="gallery_cjxohuyfc000094n2egeak3yb">
-        <img src="/../ThreadPool.jpg" itemprop="image">
-      </a>
-    
-  </div>
-</div>
-
             <h2 id="1-创建线程池（ThreadPoolExecutor）"><a href="#1-创建线程池（ThreadPoolExecutor）" class="headerlink" title="1 创建线程池（ThreadPoolExecutor）"></a>1 创建线程池（ThreadPoolExecutor）</h2><p>ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public ThreadPoolExecutor(int corePoolSize,</span><br><span class="line">                          int maximumPoolSize,</span><br><span class="line">                          long keepAliveTime,</span><br><span class="line">                          TimeUnit unit,</span><br><span class="line">                          BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                          ThreadFactory threadFactory,</span><br><span class="line">                          RejectedExecutionHandler handler) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -161,8 +149,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
 
 <h2 id="2-线程池工作原理"><a href="#2-线程池工作原理" class="headerlink" title="2 线程池工作原理"></a>2 线程池工作原理</h2><pre><code>1. 当一个任务被提交时，线程池会判断核心线程数量是否达到最大，如果没有则会通过线程工厂创建一个新的线程来执行任务；如果达到最大则执行步骤2.
 2. 尝试将任务放入工作队列，如果成功加入工作队列，当有工作线程空闲时会去工作队列中获取一个任务来执行；如果加入失败则执行步骤3.
-3. 判断线程数量是否已达到最大线程数量，如果没有则会通过线程工厂创建一个新的线程来执行任务；如果已达到最大线程数，则执行拒绝策略   </code></pre><p><img src="ThreadPool.jpg" alt="image"></p>
-<h2 id="3-源码分析"><a href="#3-源码分析" class="headerlink" title="3 源码分析"></a>3 源码分析</h2><h3 id="3-1-核心静态变量及方法"><a href="#3-1-核心静态变量及方法" class="headerlink" title="3.1 核心静态变量及方法"></a>3.1 核心静态变量及方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//高3位表示运行的状态，低29未表示线程池中运行的线程数量。</span><br><span class="line">private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));</span><br><span class="line">//Integer的大小为32，Integer.SIZE - 3 = 29</span><br><span class="line">private static final int COUNT_BITS = Integer.SIZE - 3;</span><br><span class="line">//1左移29位后减1，高3位全为0，低29位全为1</span><br><span class="line">private static final int CAPACITY   = (1 &lt;&lt; COUNT_BITS) - 1;</span><br><span class="line"></span><br><span class="line">// runState is stored in the high-order bits</span><br><span class="line">//高3位：111 【-1的二进制为32位全为1（取反加1），左移29位后高3位为111】</span><br><span class="line">private static final int RUNNING    = -1 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位：000</span><br><span class="line">private static final int SHUTDOWN   =  0 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位: 001</span><br><span class="line">private static final int STOP       =  1 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位：010</span><br><span class="line">private static final int TIDYING    =  2 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位：011</span><br><span class="line">private static final int TERMINATED =  3 &lt;&lt; COUNT_BITS;</span><br><span class="line"></span><br><span class="line">// Packing and unpacking ctl</span><br><span class="line">// CAPACITY取反后高3位全为1，低29位全为0，与运算后c的低29位全为0，保留高3位获取runState</span><br><span class="line">private static int runStateOf(int c)     &#123; return c &amp; ~CAPACITY; &#125;</span><br><span class="line">// CAPACITY高3位全为0，低29位全为1，与运算后c的高3位全为0，保留低29位获取线程数量</span><br><span class="line">private static int workerCountOf(int c)  &#123; return c &amp; CAPACITY; &#125;</span><br><span class="line">private static int ctlOf(int rs, int wc) &#123; return rs | wc; &#125;</span><br></pre></td></tr></table></figure>
+3. 判断线程数量是否已达到最大线程数量，如果没有则会通过线程工厂创建一个新的线程来执行任务；如果已达到最大线程数，则执行拒绝策略   </code></pre><h2 id="3-源码分析"><a href="#3-源码分析" class="headerlink" title="3 源码分析"></a>3 源码分析</h2><h3 id="3-1-核心静态变量及方法"><a href="#3-1-核心静态变量及方法" class="headerlink" title="3.1 核心静态变量及方法"></a>3.1 核心静态变量及方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//高3位表示运行的状态，低29未表示线程池中运行的线程数量。</span><br><span class="line">private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));</span><br><span class="line">//Integer的大小为32，Integer.SIZE - 3 = 29</span><br><span class="line">private static final int COUNT_BITS = Integer.SIZE - 3;</span><br><span class="line">//1左移29位后减1，高3位全为0，低29位全为1</span><br><span class="line">private static final int CAPACITY   = (1 &lt;&lt; COUNT_BITS) - 1;</span><br><span class="line"></span><br><span class="line">// runState is stored in the high-order bits</span><br><span class="line">//高3位：111 【-1的二进制为32位全为1（取反加1），左移29位后高3位为111】</span><br><span class="line">private static final int RUNNING    = -1 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位：000</span><br><span class="line">private static final int SHUTDOWN   =  0 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位: 001</span><br><span class="line">private static final int STOP       =  1 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位：010</span><br><span class="line">private static final int TIDYING    =  2 &lt;&lt; COUNT_BITS;</span><br><span class="line">//高3位：011</span><br><span class="line">private static final int TERMINATED =  3 &lt;&lt; COUNT_BITS;</span><br><span class="line"></span><br><span class="line">// Packing and unpacking ctl</span><br><span class="line">// CAPACITY取反后高3位全为1，低29位全为0，与运算后c的低29位全为0，保留高3位获取runState</span><br><span class="line">private static int runStateOf(int c)     &#123; return c &amp; ~CAPACITY; &#125;</span><br><span class="line">// CAPACITY高3位全为0，低29位全为1，与运算后c的高3位全为0，保留低29位获取线程数量</span><br><span class="line">private static int workerCountOf(int c)  &#123; return c &amp; CAPACITY; &#125;</span><br><span class="line">private static int ctlOf(int rs, int wc) &#123; return rs | wc; &#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-2-入口方法（execute）"><a href="#3-2-入口方法（execute）" class="headerlink" title="3.2 入口方法（execute）"></a>3.2 入口方法（execute）</h3><ol>
 <li>如果工作线程未达到核心线程数，直接创建一个工作线程来执行任务，创建失败则继续执行下一步。</li>
@@ -177,10 +164,10 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月04日 17:54</p>
-        <p>原始链接： <a class="post-url" href="/2019/07/04/ThreadPoolExecutor/" title="ThreadPoolExecutor">https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/</a></p>
+        <p>最后更新： 2019年07月04日 17:47</p>
+        <p>原始链接： <a class="post-url" href="/undefined/s/" title="ThreadPoolExecutor">https://madlives.github.io/undefined/s/</a></p>
         <footer>
-            <a href="https://github.com/madlives/madlives.github.io">
+            <a href="https://madlives.github.io">
                 <img src="/images/logo.png" alt="Despacito">
                 Despacito
             </a>
@@ -204,7 +191,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&title=《ThreadPoolExecutor》 — Despacito&pic=https://github.com/madlives/madlives.github.ioimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://madlives.github.io/undefined/s/&title=《ThreadPoolExecutor》 — Despacito&pic=https://madlives.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -214,22 +201,22 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&title=《ThreadPoolExecutor》 — Despacito&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://madlives.github.io/undefined/s/&title=《ThreadPoolExecutor》 — Despacito&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://madlives.github.io/undefined/s/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadPoolExecutor》 — Despacito&url=https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/&via=https://github.com/madlives/madlives.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadPoolExecutor》 — Despacito&url=https://madlives.github.io/undefined/s/&via=https://madlives.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://madlives.github.io/undefined/s/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -239,7 +226,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://github.com/madlives/madlives.github.io/2019/07/04/ThreadPoolExecutor/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://madlives.github.io/undefined/s/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -264,16 +251,11 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
 
 <nav id="article-nav">
   
-    <a href="/2019/07/04/s/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          ThreadPoolExecutor
-        
-      </span>
-    </a>
   
+    <a href="/undefined/ThreadPoolExecutor/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">ThreadPoolExecutor</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
 </nav>
 
@@ -309,7 +291,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
 <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script>
   var mihoConfig = {
-      root: "https://github.com/madlives/madlives.github.io",
+      root: "https://madlives.github.io",
       animate: true,
       isHome: false,
       share: true,
@@ -336,7 +318,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
             
         </div>
         <div id="sidebar-menu-box-tags">
-            
+            <a href="/tags/J-U-C/" style="font-size: 10px;">J.U.C</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -363,7 +345,7 @@ d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程�
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            
+            <a href="/tags/J-U-C/" style="font-size: 10px;">J.U.C</a>
         </div>
     </div>
 </div>
