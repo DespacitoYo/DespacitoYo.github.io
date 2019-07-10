@@ -8,19 +8,17 @@
   
     <meta name="keywords" content="DespacitoYo's Blog">
   
-  <meta name="description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 public ThreadPoolExecutor(int corePoolSize,                           int maximumPoolSize,                           long keepAliv">
+  <meta name="description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThreadPoolExecutor">
 <meta property="og:url" content="despacitoyo.github.io/J.U.C/ThreadPoolExecutor/index.html">
 <meta property="og:site_name" content="DespacitoYo">
-<meta property="og:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 public ThreadPoolExecutor(int corePoolSize,                           int maximumPoolSize,                           long keepAliv">
+<meta property="og:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="despacitoyo.github.io/J.U.C/ThreadPoolExecutor/ThreadPool.jpg">
-<meta property="og:updated_time" content="2019-07-10T09:39:35.131Z">
+<meta property="og:updated_time" content="2019-07-10T09:55:56.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadPoolExecutor">
-<meta name="twitter:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 public ThreadPoolExecutor(int corePoolSize,                           int maximumPoolSize,                           long keepAliv">
-<meta name="twitter:image" content="despacitoyo.github.io/J.U.C/ThreadPoolExecutor/ThreadPool.jpg">
+<meta name="twitter:description" content="1 创建线程池（ThreadPoolExecutor）ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。 123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long k">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -130,15 +128,9 @@
       
             
             <h2 id="1-创建线程池（ThreadPoolExecutor）"><a href="#1-创建线程池（ThreadPoolExecutor）" class="headerlink" title="1 创建线程池（ThreadPoolExecutor）"></a>1 创建线程池（ThreadPoolExecutor）</h2><p>ThreadPollExecutor有四个构造函数，但本质上都是调用这一个构造函数。</p>
-<pre><code>public ThreadPoolExecutor(int corePoolSize,
-                          int maximumPoolSize,
-                          long keepAliveTime,
-                          TimeUnit unit,
-                          BlockingQueue&lt;Runnable&gt; workQueue,
-                          ThreadFactory threadFactory,
-                          RejectedExecutionHandler handler) {
-    ...
-}</code></pre><p><strong>corePoolSize</strong>: 线程池核心线程数量 <br><br><strong>maximumPoolSize</strong>：线程池最大线程数量<br><br><strong>keepAliveTime</strong>：线程空闲时间<br><br><strong>unit</strong>：空闲时间单位<br><br><strong>workQueue</strong>：工作队列，没有空闲线程时新加的任务会放入工作队列中排队等待。工作队列共有四种实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>corePoolSize</strong>: 线程池核心线程数量 <br><br><strong>maximumPoolSize</strong>：线程池最大线程数量<br><br><strong>keepAliveTime</strong>：线程空闲时间<br><br><strong>unit</strong>：空闲时间单位<br><br><strong>workQueue</strong>：工作队列，没有空闲线程时新加的任务会放入工作队列中排队等待。工作队列共有四种实现：</p>
 <pre><code>a.ArrayBlockingQueue: 创建固定大小的阻塞队列， 采用的是数组的结构方式
 b.LinkedBlockingQueue: 创建固定大小的阻塞队列，如果为传入参数，则会创建Integer.MaxValue大小的队列
 c.SynchronousQueue: 创建一个不存储元素的阻塞队列，每一个元素的插入都必须等待一个元素的移除操作，不然会一直阻塞。
@@ -147,174 +139,28 @@ d.PriorityBlockingQueue: 一个具有优先级的无限阻塞队列。</code></p
 b. DiscardPolicy：直接丢弃，不做任何处理
 c. DiscardOldestPolicy：将工作队列头部元素丢弃（最老的），然后重新提交任务
 d. CallerRunsPolicy：主线程直接去执行这个任务，不用等待线程池</code></pre><h4 id="Executors工具类提供了几种ThreadpoolExecutor的创建方法："><a href="#Executors工具类提供了几种ThreadpoolExecutor的创建方法：" class="headerlink" title="Executors工具类提供了几种ThreadpoolExecutor的创建方法："></a>Executors工具类提供了几种ThreadpoolExecutor的创建方法：</h4><h5 id="1-FixedThreadPool"><a href="#1-FixedThreadPool" class="headerlink" title="1. FixedThreadPool"></a>1. FixedThreadPool</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FixedThreadPool的corePoolSize和maximumPoolSize都被设置为同一个参数nThreads<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keepAliveTime被设为0L意味着多余的空闲线程会被立即终止<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FixedThreadPool使用无界队列LinkedBlockingQueue作为线程池的工作队列（队列容量为Integer.MAX_VALUE）。这意味着当线程池中的线程数达到corePoolSize时，新任务会被放入工作队列，因此线程池中的线程不会超过核心线程数。所以此时maximumPoolSize和keepAliveTime都是无效参数，并且只要线程池在运行中便不会拒绝任务。</p>
-<pre><code>public static ExecutorService newFixedThreadPool(int nThreads) {
-    return new ThreadPoolExecutor(nThreads, nThreads,
-                                  0L, TimeUnit.MILLISECONDS,
-                                  new LinkedBlockingQueue&lt;Runnable&gt;());
-}</code></pre><h5 id="2-SingleThreadExecutor"><a href="#2-SingleThreadExecutor" class="headerlink" title="2. SingleThreadExecutor"></a>2. SingleThreadExecutor</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleThreadExecutor是一个使用单个worker线程的Executor，它的核心线程数和最大线程数都被设为1，相当于单线程的FixedThreadPool。</p>
-<pre><code>public static ExecutorService newSingleThreadExecutor() {
-    return new FinalizableDelegatedExecutorService
-        (new ThreadPoolExecutor(1, 1,
-                                0L, TimeUnit.MILLISECONDS,
-                                new LinkedBlockingQueue&lt;Runnable&gt;()));
-}</code></pre><h5 id="3-CachedThreadPool"><a href="#3-CachedThreadPool" class="headerlink" title="3. CachedThreadPool"></a>3. CachedThreadPool</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CachedThreadPool是一个会根据需要创建新线程的线程池，它的corePoolSize为0，意味着核心线程为空。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keepAliveTime被设为60L意味着多余的空闲线程会在空闲60s后被终止。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用没有容量的SynchronousQueue作为工作队列，每次offer操作必须等待另一个take操作，反之亦然，SynchronousQueue就像一个门框（门框上不可以站人）。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最大线程数为Integer.MAX_VALUE，意味着当主线程提交任务速度高于线程池中的线程处理速度时，会无限制的创建新线程。极端情况下，会因为创建过多的线程耗尽CPU和内存资源。</p>
-<pre><code>public static ExecutorService newCachedThreadPool() {
-    return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
-                                  60L, TimeUnit.SECONDS,
-                                  new SynchronousQueue&lt;Runnable&gt;());
-}</code></pre><h2 id="2-线程池工作原理"><a href="#2-线程池工作原理" class="headerlink" title="2 线程池工作原理"></a>2 线程池工作原理</h2><pre><code>1. 当一个任务被提交时，线程池会判断核心线程数量是否达到最大，如果没有则会通过线程工厂创建一个新的线程来执行任务；如果达到最大则执行步骤2.
-2. 尝试将任务放入工作队列，如果成功加入工作队列，当有工作线程空闲时会去工作队列中获取一个任务来执行；如果加入失败则执行步骤3.
-3. 判断线程数量是否已达到最大线程数量，如果没有则会通过线程工厂创建一个新的线程来执行任务；如果已达到最大线程数，则执行拒绝策略   </code></pre><p><img src="ThreadPool.jpg" alt="image"></p>
-<h2 id="3-源码分析"><a href="#3-源码分析" class="headerlink" title="3 源码分析"></a>3 源码分析</h2><h3 id="3-1-核心静态变量及方法"><a href="#3-1-核心静态变量及方法" class="headerlink" title="3.1 核心静态变量及方法"></a>3.1 核心静态变量及方法</h3><pre><code>//高3位表示运行的状态，低29未表示线程池中运行的线程数量。
-private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
-//Integer的大小为32，Integer.SIZE - 3 = 29
-private static final int COUNT_BITS = Integer.SIZE - 3;
-//1左移29位后减1，高3位全为0，低29位全为1
-private static final int CAPACITY   = (1 &lt;&lt; COUNT_BITS) - 1;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                  <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-// runState is stored in the high-order bits
-//高3位：111 【-1的二进制为32位全为1（取反加1），左移29位后高3位为111】
-private static final int RUNNING    = -1 &lt;&lt; COUNT_BITS;
-//高3位：000
-private static final int SHUTDOWN   =  0 &lt;&lt; COUNT_BITS;
-//高3位: 001
-private static final int STOP       =  1 &lt;&lt; COUNT_BITS;
-//高3位：010
-private static final int TIDYING    =  2 &lt;&lt; COUNT_BITS;
-//高3位：011
-private static final int TERMINATED =  3 &lt;&lt; COUNT_BITS;
+<h5 id="2-SingleThreadExecutor"><a href="#2-SingleThreadExecutor" class="headerlink" title="2. SingleThreadExecutor"></a>2. SingleThreadExecutor</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleThreadExecutor是一个使用单个worker线程的Executor，它的核心线程数和最大线程数都被设为1，相当于单线程的FixedThreadPool。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">        (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-// Packing and unpacking ctl
-// CAPACITY取反后高3位全为1，低29位全为0，与运算后c的低29位全为0，保留高3位获取runState
-private static int runStateOf(int c)     { return c &amp; ~CAPACITY; }
-// CAPACITY高3位全为0，低29位全为1，与运算后c的高3位全为0，保留低29位获取线程数量
-private static int workerCountOf(int c)  { return c &amp; CAPACITY; }
-private static int ctlOf(int rs, int wc) { return rs | wc; }</code></pre><h3 id="3-2-入口方法（execute）"><a href="#3-2-入口方法（execute）" class="headerlink" title="3.2 入口方法（execute）"></a>3.2 入口方法（execute）</h3><ol>
-<li><p>如果工作线程未达到核心线程数，直接创建一个工作线程来执行任务，创建失败则继续执行下一步。</p>
-</li>
-<li><p>如果线程池正在运行中并且将任务加入工作队列成功，则进行安全检查，虽然加入工作队列成功，但是保不齐其他调用者或者线程此时会修改线程池状态，那么此时我们就需要将任务再进行必要的移除，这是考虑复杂情况的一种安全机制的保障。</p>
-</li>
-<li><p>如果加入队列失败，工作线程未达到最大线程数，则创建一个新的线程来执行任务，工作线程已达到最大线程数则执行拒绝策略</p>
-<p> public void execute(Runnable command) {</p>
-<pre><code>if (command == null)
-    throw new NullPointerException();
-//高3位表示运行的状态，低29未表示线程池中运行的线程数量。
-int c = ctl.get();
-//根据低29位获取线程数
-if (workerCountOf(c) &lt; corePoolSize) {
-    //如果工作线程数量小于核心线程数，尝试创建新的worker线程来执行任务
-    if (addWorker(command, true))
-        return;
-    //如果失败可能是在addWorker时ctl发生改变（核心线程数达到最大），所以重新获取值
-    c = ctl.get();
-}
-//如果线程池正在运行中并且将任务加入工作队列成功
-if (isRunning(c) &amp;&amp; workQueue.offer(command)) {
-    int recheck = ctl.get();
-    //如果此刻线程池已不在运行并且任务从队列移除成功，执行拒绝策略
-    if (! isRunning(recheck) &amp;&amp; remove(command))
-        reject(command);
-    //如果此刻线程池还在运行，但是工作线程数量为0，则增加一个空的工作线程
-    else if (workerCountOf(recheck) == 0)
-        addWorker(null, false);
-}
-//如果加入队列失败，工作线程未达到最大线程数，则创建一个新的线程来执行任务
-else if (!addWorker(command, false))
-    //工作线程已达到最大线程数，执行拒绝策略
-    reject(command);</code></pre><p> }</p>
+<h5 id="3-CachedThreadPool"><a href="#3-CachedThreadPool" class="headerlink" title="3. CachedThreadPool"></a>3. CachedThreadPool</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CachedThreadPool是一个会根据需要创建新线程的线程池，它的corePoolSize为0，意味着核心线程为空。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keepAliveTime被设为60L意味着多余的空闲线程会在空闲60s后被终止。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用没有容量的SynchronousQueue作为工作队列，每次offer操作必须等待另一个take操作，反之亦然，SynchronousQueue就像一个门框（门框上不可以站人）。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最大线程数为Integer.MAX_VALUE，意味着当主线程提交任务速度高于线程池中的线程处理速度时，会无限制的创建新线程。极端情况下，会因为创建过多的线程耗尽CPU和内存资源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                      <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                      <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">## 2 线程池工作原理</span><br><span class="line"></span><br><span class="line">    <span class="number">1</span>. 当一个任务被提交时，线程池会判断核心线程数量是否达到最大，如果没有则会通过线程工厂创建一个新的线程来执行任务；如果达到最大则执行步骤<span class="number">2</span>.</span><br><span class="line">    <span class="number">2</span>. 尝试将任务放入工作队列，如果成功加入工作队列，当有工作线程空闲时会去工作队列中获取一个任务来执行；如果加入失败则执行步骤<span class="number">3</span>.</span><br><span class="line">    <span class="number">3</span>. 判断线程数量是否已达到最大线程数量，如果没有则会通过线程工厂创建一个新的线程来执行任务；如果已达到最大线程数，则执行拒绝策略   </span><br><span class="line">![image](ThreadPool.jpg)</span><br><span class="line">## 3 源码分析</span><br><span class="line"></span><br><span class="line">### 3.1 核心静态变量及方法</span><br><span class="line">``` java    </span><br><span class="line">    <span class="comment">//高3位表示运行的状态，低29未表示线程池中运行的线程数量。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br><span class="line">    <span class="comment">//Integer的大小为32，Integer.SIZE - 3 = 29</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COUNT_BITS = Integer.SIZE - <span class="number">3</span>;</span><br><span class="line">    <span class="comment">//1左移29位后减1，高3位全为0，低29位全为1</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CAPACITY   = (<span class="number">1</span> &lt;&lt; COUNT_BITS) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// runState is stored in the high-order bits</span></span><br><span class="line">    <span class="comment">//高3位：111 【-1的二进制为32位全为1（取反加1），左移29位后高3位为111】</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RUNNING    = -<span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="comment">//高3位：000</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SHUTDOWN   =  <span class="number">0</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="comment">//高3位: 001</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP       =  <span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="comment">//高3位：010</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TIDYING    =  <span class="number">2</span> &lt;&lt; COUNT_BITS;</span><br><span class="line">    <span class="comment">//高3位：011</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TERMINATED =  <span class="number">3</span> &lt;&lt; COUNT_BITS;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Packing and unpacking ctl</span></span><br><span class="line">    <span class="comment">// CAPACITY取反后高3位全为1，低29位全为0，与运算后c的低29位全为0，保留高3位获取runState</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">runStateOf</span><span class="params">(<span class="keyword">int</span> c)</span>     </span>&#123; <span class="keyword">return</span> c &amp; ~CAPACITY; &#125;</span><br><span class="line">    <span class="comment">// CAPACITY高3位全为0，低29位全为1，与运算后c的高3位全为0，保留低29位获取线程数量</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">workerCountOf</span><span class="params">(<span class="keyword">int</span> c)</span>  </span>&#123; <span class="keyword">return</span> c &amp; CAPACITY; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">ctlOf</span><span class="params">(<span class="keyword">int</span> rs, <span class="keyword">int</span> wc)</span> </span>&#123; <span class="keyword">return</span> rs | wc; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-入口方法（execute）"><a href="#3-2-入口方法（execute）" class="headerlink" title="3.2 入口方法（execute）"></a>3.2 入口方法（execute）</h3><ol>
+<li>如果工作线程未达到核心线程数，直接创建一个工作线程来执行任务，创建失败则继续执行下一步。</li>
+<li>如果线程池正在运行中并且将任务加入工作队列成功，则进行安全检查，虽然加入工作队列成功，但是保不齐其他调用者或者线程此时会修改线程池状态，那么此时我们就需要将任务再进行必要的移除，这是考虑复杂情况的一种安全机制的保障。</li>
+<li>如果加入队列失败，工作线程未达到最大线程数，则创建一个新的线程来执行任务，工作线程已达到最大线程数则执行拒绝策略<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Runnable command)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (command == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="comment">//高3位表示运行的状态，低29未表示线程池中运行的线程数量。</span></span><br><span class="line">    <span class="keyword">int</span> c = ctl.get();</span><br><span class="line">    <span class="comment">//根据低29位获取线程数</span></span><br><span class="line">    <span class="keyword">if</span> (workerCountOf(c) &lt; corePoolSize) &#123;</span><br><span class="line">        <span class="comment">//如果工作线程数量小于核心线程数，尝试创建新的worker线程来执行任务</span></span><br><span class="line">        <span class="keyword">if</span> (addWorker(command, <span class="keyword">true</span>))</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//如果失败可能是在addWorker时ctl发生改变（核心线程数达到最大），所以重新获取值</span></span><br><span class="line">        c = ctl.get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果线程池正在运行中并且将任务加入工作队列成功</span></span><br><span class="line">    <span class="keyword">if</span> (isRunning(c) &amp;&amp; workQueue.offer(command)) &#123;</span><br><span class="line">        <span class="keyword">int</span> recheck = ctl.get();</span><br><span class="line">        <span class="comment">//如果此刻线程池已不在运行并且任务从队列移除成功，执行拒绝策略</span></span><br><span class="line">        <span class="keyword">if</span> (! isRunning(recheck) &amp;&amp; remove(command))</span><br><span class="line">            reject(command);</span><br><span class="line">        <span class="comment">//如果此刻线程池还在运行，但是工作线程数量为0，则增加一个空的工作线程</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (workerCountOf(recheck) == <span class="number">0</span>)</span><br><span class="line">            addWorker(<span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果加入队列失败，工作线程未达到最大线程数，则创建一个新的线程来执行任务</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!addWorker(command, <span class="keyword">false</span>))</span><br><span class="line">        <span class="comment">//工作线程已达到最大线程数，执行拒绝策略</span></span><br><span class="line">        reject(command);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h3 id="3-3-增加工作线程（addWorker）"><a href="#3-3-增加工作线程（addWorker）" class="headerlink" title="3.3 增加工作线程（addWorker）"></a>3.3 增加工作线程（addWorker）</h3><p>首先通过CAS操作增加工作线程数量，增加成功后实例化一个工作线程用来执行任务，然后将工作线程加入works，因为works实际上是一个非线程安全的容器（HashSet），所以通过可重入锁（ReentrantLock）来保证了线程安全问题，防止多个任务同时提交导致works计算不准确，如果添加成功则将该工作线程启动。</p>
-<pre><code>private boolean addWorker(Runnable firstTask, boolean core) {
-    //continue retry; 可以使retry：后面的代码块重新执行
-    //break retry; 可以使retry：后面的代码块终止执行，不管有多少层循环嵌套
-    retry:
-    for (;;) {
-        //高3位表示运行的状态，低29未表示线程池中运行的线程数量。
-        int c = ctl.get();
-        //获取线程池的运行状态
-        int rs = runStateOf(c);
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">addWorker</span><span class="params">(Runnable firstTask, <span class="keyword">boolean</span> core)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//continue retry; 可以使retry：后面的代码块重新执行</span></span><br><span class="line">    <span class="comment">//break retry; 可以使retry：后面的代码块终止执行，不管有多少层循环嵌套</span></span><br><span class="line">    retry:</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="comment">//高3位表示运行的状态，低29未表示线程池中运行的线程数量。</span></span><br><span class="line">        <span class="keyword">int</span> c = ctl.get();</span><br><span class="line">        <span class="comment">//获取线程池的运行状态</span></span><br><span class="line">        <span class="keyword">int</span> rs = runStateOf(c);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check if queue empty only if necessary.</span></span><br><span class="line">        <span class="keyword">if</span> (rs &gt;= SHUTDOWN &amp;&amp;</span><br><span class="line">            ! (rs == SHUTDOWN &amp;&amp;</span><br><span class="line">               firstTask == <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">               ! workQueue.isEmpty()))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="comment">//获取工作线程数量</span></span><br><span class="line">            <span class="keyword">int</span> wc = workerCountOf(c);</span><br><span class="line">            <span class="comment">//如果工作线程数超过限制，则返回添加失败</span></span><br><span class="line">            <span class="keyword">if</span> (wc &gt;= CAPACITY ||</span><br><span class="line">                wc &gt;= (core ? corePoolSize : maximumPoolSize))</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="comment">//通过CAS机制增加工作线程数，成功则直接跳出循环</span></span><br><span class="line">            <span class="keyword">if</span> (compareAndIncrementWorkerCount(c))</span><br><span class="line">                <span class="keyword">break</span> retry;</span><br><span class="line">            <span class="comment">//如果CAS操作失败，则说明其他调用者或者线程修改了线程池数据，需要重新读取</span></span><br><span class="line">            c = ctl.get();  <span class="comment">// Re-read ctl</span></span><br><span class="line">            <span class="comment">//如果当前线程池状态已经发生了改变，则从最外层循环开始重新执行</span></span><br><span class="line">            <span class="keyword">if</span> (runStateOf(c) != rs)</span><br><span class="line">                <span class="keyword">continue</span> retry;</span><br><span class="line">            <span class="comment">// 否则继续当前循环</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//工作线程启动状态</span></span><br><span class="line">    <span class="keyword">boolean</span> workerStarted = <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">//工作线程添加状态</span></span><br><span class="line">    <span class="keyword">boolean</span> workerAdded = <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">//工作线程引用</span></span><br><span class="line">    Worker w = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//实例化一个工作线程用于执行任务</span></span><br><span class="line">        w = <span class="keyword">new</span> Worker(firstTask);</span><br><span class="line">        <span class="comment">//取工作线程中的线程</span></span><br><span class="line">        <span class="keyword">final</span> Thread t = w.thread;</span><br><span class="line">        <span class="keyword">if</span> (t != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//获取可重入锁</span></span><br><span class="line">            <span class="keyword">final</span> ReentrantLock mainLock = <span class="keyword">this</span>.mainLock;</span><br><span class="line">            <span class="comment">//加锁，防止多个线程同时提交任务导致works计算不准确，因为works实际上使用HashSet存储的，非线程安全的</span></span><br><span class="line">            mainLock.lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 获取线程池运行状态</span></span><br><span class="line">                <span class="keyword">int</span> rs = runStateOf(ctl.get());</span><br><span class="line"></span><br><span class="line">                <span class="comment">//如果线程池处于运行状态</span></span><br><span class="line">                <span class="keyword">if</span> (rs &lt; SHUTDOWN ||</span><br><span class="line">                    <span class="comment">//或者终止状态并且任务为空</span></span><br><span class="line">                    (rs == SHUTDOWN &amp;&amp; firstTask == <span class="keyword">null</span>)) &#123;</span><br><span class="line">                    <span class="comment">//如果该线程已运行，则抛出IllegalThreadStateException异常</span></span><br><span class="line">                    <span class="keyword">if</span> (t.isAlive())</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalThreadStateException();</span><br><span class="line">                    <span class="comment">//将新建的工作线程加入works</span></span><br><span class="line">                    workers.add(w);</span><br><span class="line">                    <span class="keyword">int</span> s = workers.size();</span><br><span class="line">                    <span class="keyword">if</span> (s &gt; largestPoolSize)</span><br><span class="line">                        largestPoolSize = s;</span><br><span class="line">                    <span class="comment">//调整工作线程添加状态为true</span></span><br><span class="line">                    workerAdded = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="comment">//释放锁</span></span><br><span class="line">                mainLock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果工作线程已添加，则启动该线程，并将工作线程启动状态改为true</span></span><br><span class="line">            <span class="keyword">if</span> (workerAdded) &#123;</span><br><span class="line">                t.start();</span><br><span class="line">                workerStarted = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">//如果工作线程未启动，执行添加失败逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (! workerStarted)</span><br><span class="line">            addWorkerFailed(w);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> workerStarted;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        // Check if queue empty only if necessary.
-        if (rs &gt;= SHUTDOWN &amp;&amp;
-            ! (rs == SHUTDOWN &amp;&amp;
-               firstTask == null &amp;&amp;
-               ! workQueue.isEmpty()))
-            return false;
 
-        for (;;) {
-            //获取工作线程数量
-            int wc = workerCountOf(c);
-            //如果工作线程数超过限制，则返回添加失败
-            if (wc &gt;= CAPACITY ||
-                wc &gt;= (core ? corePoolSize : maximumPoolSize))
-                return false;
-            //通过CAS机制增加工作线程数，成功则直接跳出循环
-            if (compareAndIncrementWorkerCount(c))
-                break retry;
-            //如果CAS操作失败，则说明其他调用者或者线程修改了线程池数据，需要重新读取
-            c = ctl.get();  // Re-read ctl
-            //如果当前线程池状态已经发生了改变，则从最外层循环开始重新执行
-            if (runStateOf(c) != rs)
-                continue retry;
-            // 否则继续当前循环
-        }
-    }
-    //工作线程启动状态
-    boolean workerStarted = false;
-    //工作线程添加状态
-    boolean workerAdded = false;
-    //工作线程引用
-    Worker w = null;
-    try {
-        //实例化一个工作线程用于执行任务
-        w = new Worker(firstTask);
-        //取工作线程中的线程
-        final Thread t = w.thread;
-        if (t != null) {
-            //获取可重入锁
-            final ReentrantLock mainLock = this.mainLock;
-            //加锁，防止多个线程同时提交任务导致works计算不准确，因为works实际上使用HashSet存储的，非线程安全的
-            mainLock.lock();
-            try {
-                // 获取线程池运行状态
-                int rs = runStateOf(ctl.get());
-
-                //如果线程池处于运行状态
-                if (rs &lt; SHUTDOWN ||
-                    //或者终止状态并且任务为空
-                    (rs == SHUTDOWN &amp;&amp; firstTask == null)) {
-                    //如果该线程已运行，则抛出IllegalThreadStateException异常
-                    if (t.isAlive())
-                        throw new IllegalThreadStateException();
-                    //将新建的工作线程加入works
-                    workers.add(w);
-                    int s = workers.size();
-                    if (s &gt; largestPoolSize)
-                        largestPoolSize = s;
-                    //调整工作线程添加状态为true
-                    workerAdded = true;
-                }
-            } finally {
-                //释放锁
-                mainLock.unlock();
-            }
-            //如果工作线程已添加，则启动该线程，并将工作线程启动状态改为true
-            if (workerAdded) {
-                t.start();
-                workerStarted = true;
-            }
-        }
-    } finally {
-        //如果工作线程未启动，执行添加失败逻辑
-        if (! workerStarted)
-            addWorkerFailed(w);
-    }
-    return workerStarted;
-}</code></pre>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月10日 17:39</p>
+        <p>最后更新： 2019年07月10日 17:55</p>
         <p>原始链接： <a class="post-url" href="/J.U.C/ThreadPoolExecutor/" title="ThreadPoolExecutor">despacitoyo.github.io/J.U.C/ThreadPoolExecutor/</a></p>
         <footer>
             <a href="despacitoyo.github.io">
@@ -394,7 +240,7 @@ else if (!addWorker(command, false))
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-创建线程池（ThreadPoolExecutor）"><span class="post-toc-text">1 创建线程池（ThreadPoolExecutor）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Executors工具类提供了几种ThreadpoolExecutor的创建方法："><span class="post-toc-text">Executors工具类提供了几种ThreadpoolExecutor的创建方法：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-FixedThreadPool"><span class="post-toc-text">1. FixedThreadPool</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-SingleThreadExecutor"><span class="post-toc-text">2. SingleThreadExecutor</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-CachedThreadPool"><span class="post-toc-text">3. CachedThreadPool</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-线程池工作原理"><span class="post-toc-text">2 线程池工作原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-源码分析"><span class="post-toc-text">3 源码分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-核心静态变量及方法"><span class="post-toc-text">3.1 核心静态变量及方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-入口方法（execute）"><span class="post-toc-text">3.2 入口方法（execute）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-3-增加工作线程（addWorker）"><span class="post-toc-text">3.3 增加工作线程（addWorker）</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-创建线程池（ThreadPoolExecutor）"><span class="post-toc-text">1 创建线程池（ThreadPoolExecutor）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Executors工具类提供了几种ThreadpoolExecutor的创建方法："><span class="post-toc-text">Executors工具类提供了几种ThreadpoolExecutor的创建方法：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-FixedThreadPool"><span class="post-toc-text">1. FixedThreadPool</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-SingleThreadExecutor"><span class="post-toc-text">2. SingleThreadExecutor</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-CachedThreadPool"><span class="post-toc-text">3. CachedThreadPool</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-入口方法（execute）"><span class="post-toc-text">3.2 入口方法（execute）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-3-增加工作线程（addWorker）"><span class="post-toc-text">3.3 增加工作线程（addWorker）</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
