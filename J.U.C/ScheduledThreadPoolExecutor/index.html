@@ -3,19 +3,19 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>ScheduledThreadPoolExecutor | Despacito</title>
+  <title>ScheduledThreadPoolExecutor | DespacitoYo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    <meta name="keywords" content="Despacito's Blog">
+    <meta name="keywords" content="DespacitoYo's Blog">
   
   <meta name="description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ScheduledThreadPoolExecutor">
-<meta property="og:url" content="madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/index.html">
-<meta property="og:site_name" content="Despacito">
+<meta property="og:url" content="despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/index.html">
+<meta property="og:site_name" content="DespacitoYo">
 <meta property="og:description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-05T02:09:27.924Z">
+<meta property="og:updated_time" content="2019-07-10T09:38:58.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ScheduledThreadPoolExecutor">
 <meta name="twitter:description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
@@ -41,7 +41,7 @@
         <div id="header-menu" class="header-menu-pos animated">
             <div class="header-menu-container">
                 <a href="/" class="left">
-                    <span class="site-title">Despacito&#39;s Blog</span>
+                    <span class="site-title">DespacitoYo&#39;s Blog</span>
                 </a>
                 <nav id="header-menu-nav" class="right">
                     
@@ -71,7 +71,7 @@
                 <div id="header-title">
                     
                     <h2>
-                        Despacito&#39;s Blog
+                        DespacitoYo&#39;s Blog
                     </h2>
                     
                 </div>
@@ -89,7 +89,7 @@
                         <a title="Despacito" target="_blank" href="/">
                             <i class="fa fa-home fa-2x"></i></a>
                     
-                        <a title="Github" target="_blank" href="//github.com/madlives">
+                        <a title="Github" target="_blank" href="//github.com/despacitoyo">
                             <i class="fa fa-github fa-2x"></i></a>
                     
                 </div>
@@ -138,15 +138,15 @@
           new DelayedWorkQueue(), threadFactory, handler);
     }
 }</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从构造函数可以看出ScheduledThreadPoolExecutor还是调用的父类ThreadPoolExecutor的构造方式，其中最大线程数固定为Integer.MAX_VALUE，空闲时间固定为0，工作队列固定为DelayedWorkQueue。DelayedWorkQueue是一个无界队列，故最大线程数并没有什么意义。</p>
-<h4 id="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："><a href="#Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：" class="headerlink" title="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："></a>Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：</h4><h5 id="1-newScheduledThreadPool"><a href="#1-newScheduledThreadPool" class="headerlink" title="1. newScheduledThreadPool"></a>1. newScheduledThreadPool</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只指定核心线程数，使用默认的线程工厂以及拒绝策略，最多创建corePoolSize个线程。</p>
+<h4 id="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："><a href="#Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：" class="headerlink" title="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："></a>Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：</h4><h4 id="1-newScheduledThreadPool"><a href="#1-newScheduledThreadPool" class="headerlink" title="1. newScheduledThreadPool"></a>1. newScheduledThreadPool</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只指定核心线程数，使用默认的线程工厂以及拒绝策略，最多创建corePoolSize个线程。</p>
 <pre><code>public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
     return new ScheduledThreadPoolExecutor(corePoolSize);
-}</code></pre><h5 id="2-newSingleThreadScheduledExecutor"><a href="#2-newSingleThreadScheduledExecutor" class="headerlink" title="2. newSingleThreadScheduledExecutor"></a>2. newSingleThreadScheduledExecutor</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;核心线程数为1，使用默认的线程工厂以及拒绝策略，单线程的newScheduledThreadPool。</p>
+}</code></pre><h4 id="2-newSingleThreadScheduledExecutor"><a href="#2-newSingleThreadScheduledExecutor" class="headerlink" title="2. newSingleThreadScheduledExecutor"></a>2. newSingleThreadScheduledExecutor</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;核心线程数为1，使用默认的线程工厂以及拒绝策略，单线程的newScheduledThreadPool。</p>
 <pre><code>public static ScheduledExecutorService newSingleThreadScheduledExecutor() {
     return new DelegatedScheduledExecutorService
         (new ScheduledThreadPoolExecutor(1));
 }</code></pre><h2 id="2-核心思想"><a href="#2-核心思想" class="headerlink" title="2. 核心思想"></a>2. 核心思想</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledThreadPoolExecutor的基本实现依赖于ThreadPoolExecutor，只不过用了特殊的工作队列DelayedWorkQueue（一种基于堆实现的优先队列，类似PriorityQueue），DelayedWorkQueue的队首始终为执行时间最早的一个任务，当worker线程调用DelayedWorkQueue.take()方法时，如果队首任务的执行时间大于当前时间则会返回空，直到当前时间大于等于执行时间才将队首的任务返回，然后worker线程就执行该任务，如果是周期性任务，则执行后根据执行频率重新计算下次执行时间后再放入DelayedWorkQueue中。</p>
-<h2 id="3-核心方法"><a href="#3-核心方法" class="headerlink" title="3. 核心方法"></a>3. 核心方法</h2><h5 id="1-schedule方法"><a href="#1-schedule方法" class="headerlink" title="1. schedule方法"></a>1. schedule方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schedule有两个重载方法，一个用于执行Runnable任务，一个用于执行Callable任务，command为要执行的任务，delay为延时执行的时间，unit为延时执行的时间单位。二者都是先将任务封装为一个RunnableScheduledFuture对象（实际上就是ScheduledFutureTask），然后放入DelayedWorkQueue队列中，等待时间线程池中的线程从队列中获取任务并执行。Callable与Runnable的区别在于，Callable可以通过调用FutureTask.get()来获取执行结果，不过该方法会阻塞主线程直到获得结果。</p>
+<h2 id="3-核心方法"><a href="#3-核心方法" class="headerlink" title="3. 核心方法"></a>3. 核心方法</h2><h4 id="1-schedule方法"><a href="#1-schedule方法" class="headerlink" title="1. schedule方法"></a>1. schedule方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schedule有两个重载方法，一个用于执行Runnable任务，一个用于执行Callable任务，command为要执行的任务，delay为延时执行的时间，unit为延时执行的时间单位。二者都是先将任务封装为一个RunnableScheduledFuture对象（实际上就是ScheduledFutureTask），然后放入DelayedWorkQueue队列中，等待时间线程池中的线程从队列中获取任务并执行。Callable与Runnable的区别在于，Callable可以通过调用FutureTask.get()来获取执行结果，不过该方法会阻塞主线程直到获得结果。</p>
 <pre><code>public ScheduledFuture&lt;?&gt; schedule(Runnable command,
                                    long delay,
                                    TimeUnit unit) {
@@ -169,7 +169,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
                                    triggerTime(delay, unit)));
     delayedExecute(t);
     return t;
-}</code></pre><h5 id="2-scheduleAtFixedRate方法"><a href="#2-scheduleAtFixedRate方法" class="headerlink" title="2. scheduleAtFixedRate方法"></a>2. scheduleAtFixedRate方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduleAtFixedRate用于执行固定频率（时间间隔）的任务，command为要执行的任务，initialDelay为第一次执行的延迟时间，period为后面每次执行的时间间隔，unit为时间单位。与schedule方法一样，scheduleAtFixedRate方法也是通过创建一个RunnableScheduledFuture对象（实际上就是ScheduledFutureTask），然后放入DelayedWorkQueue队列中，等待时间线程池中的线程从队列中获取任务并执行。区别在于首次调用scheduleAtFixedRate方法时会在initialDelay时间之后首次执行任务，之后每次根据当前执行时间延迟period时间执行，所以每次执行的时间大致是能确定的。</p>
+}</code></pre><h4 id="2-scheduleAtFixedRate方法"><a href="#2-scheduleAtFixedRate方法" class="headerlink" title="2. scheduleAtFixedRate方法"></a>2. scheduleAtFixedRate方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduleAtFixedRate用于执行固定频率（时间间隔）的任务，command为要执行的任务，initialDelay为第一次执行的延迟时间，period为后面每次执行的时间间隔，unit为时间单位。与schedule方法一样，scheduleAtFixedRate方法也是通过创建一个RunnableScheduledFuture对象（实际上就是ScheduledFutureTask），然后放入DelayedWorkQueue队列中，等待时间线程池中的线程从队列中获取任务并执行。区别在于首次调用scheduleAtFixedRate方法时会在initialDelay时间之后首次执行任务，之后每次根据当前执行时间延迟period时间执行，所以每次执行的时间大致是能确定的。</p>
 <pre><code>public ScheduledFuture&lt;?&gt; scheduleAtFixedRate(Runnable command,
                                               long initialDelay,
                                               long period,
@@ -187,7 +187,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
     sft.outerTask = t;
     delayedExecute(t);
     return t;
-}</code></pre><h5 id="3-scheduleWithFixedDelay方法"><a href="#3-scheduleWithFixedDelay方法" class="headerlink" title="3. scheduleWithFixedDelay方法"></a>3. scheduleWithFixedDelay方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduleWithFixedDelay也是用于执行固定频率的任务，与scheduleAtFixedRate方法不同的是，scheduleWithFixedDelay是在任务执行完成之后的时间加上delay时间延迟执行的，所以每次执行的时间不是确定的（因为不知道任务要执行多久），但间隔是确定的。其他的同scheduleAtFixedRate方法。</p>
+}</code></pre><h4 id="3-scheduleWithFixedDelay方法"><a href="#3-scheduleWithFixedDelay方法" class="headerlink" title="3. scheduleWithFixedDelay方法"></a>3. scheduleWithFixedDelay方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduleWithFixedDelay也是用于执行固定频率的任务，与scheduleAtFixedRate方法不同的是，scheduleWithFixedDelay是在任务执行完成之后的时间加上delay时间延迟执行的，所以每次执行的时间不是确定的（因为不知道任务要执行多久），但间隔是确定的。其他的同scheduleAtFixedRate方法。</p>
 <pre><code>public ScheduledFuture&lt;?&gt; scheduleWithFixedDelay(Runnable command,
                                                  long initialDelay,
                                                  long delay,
@@ -205,7 +205,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
     sft.outerTask = t;
     delayedExecute(t);
     return t;
-}</code></pre><h5 id="4-delayedExecute方法"><a href="#4-delayedExecute方法" class="headerlink" title="4. delayedExecute方法"></a>4. delayedExecute方法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为ScheduledThreadPoolExecutor是用于执行定时或周期性任务的线程池，所以每次提交任务都是直接放入工作队列而不是直接执行，故每次提交任务会创建空的工作线程直到线程池中的线程数达到核心线程数，然后每个线程都是通过循环调用take()方法去队列中获取任务然后执行。</p>
+}</code></pre><h4 id="4-delayedExecute方法"><a href="#4-delayedExecute方法" class="headerlink" title="4. delayedExecute方法"></a>4. delayedExecute方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为ScheduledThreadPoolExecutor是用于执行定时或周期性任务的线程池，所以每次提交任务都是直接放入工作队列而不是直接执行，故每次提交任务会创建空的工作线程直到线程池中的线程数达到核心线程数，然后每个线程都是通过循环调用take()方法去队列中获取任务然后执行。</p>
 <pre><code>private void delayedExecute(RunnableScheduledFuture&lt;?&gt; task) {
     //如果线程池已停止运行，则执行拒绝策略
     if (isShutdown())
@@ -223,7 +223,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
             // 在这里是每次添加任务都会创建一个线程，直到线程池中的线程数达到核心线程数
             ensurePrestart();
     }
-}</code></pre><h2 id="4-重要内部类"><a href="#4-重要内部类" class="headerlink" title="4. 重要内部类"></a>4. 重要内部类</h2><h5 id="1-ScheduledFutureTask"><a href="#1-ScheduledFutureTask" class="headerlink" title="1. ScheduledFutureTask"></a>1. ScheduledFutureTask</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledFutureTask继承自FutureTask实现了RunnableScheduledFuture接口，它的time属性代表了该任务的执行时间，sequenceNumber代表了该任务加入ScheduledThreadPoolExecutor的序号，period代表了任务执行的时间间隔。</p>
+}</code></pre><h2 id="4-重要内部类"><a href="#4-重要内部类" class="headerlink" title="4. 重要内部类"></a>4. 重要内部类</h2><h4 id="1-ScheduledFutureTask"><a href="#1-ScheduledFutureTask" class="headerlink" title="1. ScheduledFutureTask"></a>1. ScheduledFutureTask</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledFutureTask继承自FutureTask实现了RunnableScheduledFuture接口，它的time属性代表了该任务的执行时间，sequenceNumber代表了该任务加入ScheduledThreadPoolExecutor的序号，period代表了任务执行的时间间隔。</p>
 <pre><code>private class ScheduledFutureTask&lt;V&gt;
         extends FutureTask&lt;V&gt; implements RunnableScheduledFuture&lt;V&gt; {
     //添加到ScheduledThreadPoolExecutor中的序号
@@ -254,16 +254,179 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
         }
         long diff = getDelay(NANOSECONDS) - other.getDelay(NANOSECONDS);
         return (diff &lt; 0) ? -1 : (diff &gt; 0) ? 1 : 0;
-    }</code></pre><h5 id="2-DelayedWorkQueue"><a href="#2-DelayedWorkQueue" class="headerlink" title="2. DelayedWorkQueue"></a>2. DelayedWorkQueue</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-
+    }</code></pre><h4 id="2-DelayedWorkQueue"><a href="#2-DelayedWorkQueue" class="headerlink" title="2. DelayedWorkQueue"></a>2. DelayedWorkQueue</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledThreadPoolExecutor之所以使用DelayedWorkQueue作为工作队列，是因为定时任务需要优先执行时间靠前的任务，所以就需要一个优先队列，而在Java中优先队列只有一个PriorityQueue，但是PriorityQueue是非线程安全的、非阻塞的优先队列，所以ScheduledThreadPoolExecutor就在内部实现了一个线程安全的、阻塞的优先队列。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DelayedWorkQueue是一个基于堆的数据结构,继承自AbstractQueue实现了BlockingQueue接口。内部使用数组实现堆的功能，通过Leader/Follower多线程网络模型防止了动态内存分布及线程间的数据交换。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于DelayedWorkQueue是优先队列，所以用最小堆实现的，即最早要执行的任务放在队列首部。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Leader/Follower多线程网络模型：最多只有一个leader线程用于监听任务，而其他的空闲中的线程（follower）都在等待成为leader，当leader获取到任务之后会首先提拔一个follower线程成为leader，然后自己去执行任务成为processor。</p>
+<pre><code>static class DelayedWorkQueue extends AbstractQueue&lt;Runnable&gt;
+    implements BlockingQueue&lt;Runnable&gt; {
+    //初始容量
+    private static final int INITIAL_CAPACITY = 16;
+    //底层用数组实现堆
+    private RunnableScheduledFuture&lt;?&gt;[] queue =
+        new RunnableScheduledFuture&lt;?&gt;[INITIAL_CAPACITY];
+    //使用可重入锁来保证线程安全
+    private final ReentrantLock lock = new ReentrantLock();
+    //队列大小
+    private int size = 0;
+    //leader线程，始终为最早要执行任务的执行线程
+    private Thread leader = null;
+    //与lock结合使用
+    private final Condition available = lock.newCondition();
+}</code></pre><h5 id="1-入列方法（offer）"><a href="#1-入列方法（offer）" class="headerlink" title="1.入列方法（offer）"></a>1.入列方法（offer）</h5><pre><code>public boolean offer(Runnable x) {
+    if (x == null)
+        throw new NullPointerException();
+    RunnableScheduledFuture&lt;?&gt; e = (RunnableScheduledFuture&lt;?&gt;)x;
+    //获取lock实例并加锁
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+        int i = size;
+        //如果容量不够，则进行扩容操作
+        if (i &gt;= queue.length)
+            grow();
+        //修改队列大小
+        size = i + 1;
+        //如果原来队列为空，则直接将任务放入数组索引0处
+        if (i == 0) {
+            queue[0] = e;
+            setIndex(e, 0);
+        } 
+        //否则根据堆的规则进行排序
+        else {
+            siftUp(i, e);
+        }
+        //如果入队的任务在队列首部，则重置leader线程
+        if (queue[0] == e) {
+            //先将leader线程置为空
+            leader = null;
+            //再重新提拔一个follower成为leader
+            available.signal();
+        }
+    } finally {
+        //释放锁
+        lock.unlock();
+    }
+    return true;
+}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有的入列方法都是调用这一个方法。首先判断队列容量是否足够，不够则进行扩容；然后根据最小堆的规则进行排序插入操作；最后判断加入的任务是否具有最高优先级，是则重置leader线程用于执行插入的任务。整个过程通过ReentrantLock加锁来保证线程安全。这里涉及了几个重要的方法，扩容方法grow,排序插入方法siftUp。 </p>
+<h5 id="2-扩容方法（grow）"><a href="#2-扩容方法（grow）" class="headerlink" title="2. 扩容方法（grow）"></a>2. 扩容方法（grow）</h5><pre><code>private void grow() {
+    int oldCapacity = queue.length;
+    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1); // grow 50%
+    if (newCapacity &lt; 0) // overflow
+        newCapacity = Integer.MAX_VALUE;
+    queue = Arrays.copyOf(queue, newCapacity);
+}    </code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与ArrayList的扩容方法很相似，DelayedWorkQueue容量不够时会自动扩容，每次扩容50%，但是不能超过Integer最大值，通过Arrays.copyOf进行扩容，实际上底层调用System.arraycopy()达到高效扩容的目的。</p>
+<h5 id="3-排序插入方法（siftUp）"><a href="#3-排序插入方法（siftUp）" class="headerlink" title="3. 排序插入方法（siftUp）"></a>3. 排序插入方法（siftUp）</h5><pre><code>private void siftUp(int k, RunnableScheduledFuture&lt;?&gt; key) {
+    while (k &gt; 0) {
+        //取k位置的父节点索引
+        int parent = (k - 1) &gt;&gt;&gt; 1;
+        //取父节点e
+        RunnableScheduledFuture&lt;?&gt; e = queue[parent];
+        //如果key比父节点大，则满足最小堆规则，停止循环
+        if (key.compareTo(e) &gt;= 0)
+            break;
+        //如果父节点较大，则把父节点位置与key交换
+        queue[k] = e;
+        setIndex(e, k);
+        k = parent;
+    }
+    //通过循环确定了key的索引位置，将key插入该位置
+    queue[k] = key;
+    setIndex(key, k);
+}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每次先将插入的任务放在队尾，然后通过比较大小确定最终位置。因为ScheduledFutureTask已经根据时间大小重写了compareTo()方法，所以这里直接通过compareTo()方法比较大小来进行排序。这里需要明白最小堆的规则，需要满足2个条件：1.是完全二叉树，2.父节点的值不能小于子节点的值。最小堆在数组中的表示方法如下：</p>
+<pre><code>// 对于n位置的节点来说：
+int left = 2 * n + 1; // 左子节点
+int right = 2 * n + 2; // 右子节点
+int parent = (n - 1) / 2; // 父节点，当然n要大于0，根节点是没有父节点的</code></pre><h5 id="4-等待获取队首方法（take），实现任务调度的核心"><a href="#4-等待获取队首方法（take），实现任务调度的核心" class="headerlink" title="4. 等待获取队首方法（take），实现任务调度的核心"></a>4. 等待获取队首方法（take），实现任务调度的核心</h5><pre><code>public RunnableScheduledFuture&lt;?&gt; take() throws InterruptedException {
+    //获取lock实例并加锁
+    final ReentrantLock lock = this.lock;
+    lock.lockInterruptibly();
+    try {
+        for (;;) {
+            //获取队首任务
+            RunnableScheduledFuture&lt;?&gt; first = queue[0];
+            //如果队首任务为空，进入等待状态
+            if (first == null)
+                available.await();
+            else {
+                //获取队首任务的延时数
+                long delay = first.getDelay(NANOSECONDS);
+                //延时数小于等于0；说明任务已达调度时间，取出队列交.
+                给leader线程去执行。
+                if (delay &lt;= 0)
+                    return finishPoll(first);
+                //任务还未到执行时间，分情况进入等待状态
+                first = null; // don&apos;t retain ref while waiting
+                //如果leader线程已存在，则进入等待状态成为follower，等待提拔为leader线程
+                if (leader != null)
+                    available.await();
+                else {
+                    //如果leader线程不存在，则将当前线程提拔为leader线程
+                    Thread thisThread = Thread.currentThread();
+                    leader = thisThread;
+                    try {
+                        //进入等待状态直到达到任务执行时间
+                        available.awaitNanos(delay);
+                    } finally {
+                        //到达执行时间，leader线程去执行任务，成为processor
+                        if (leader == thisThread)
+                            leader = null;
+                    }
+                }
+            }
+        }
+    } finally {
+        //leader线程已成为processor，如果队首还有任务，则重新提拔一个follower线程成为leader线程
+        if (leader == null &amp;&amp; queue[0] != null)
+            available.signal();
+        //释放锁
+        lock.unlock();
+    }
+}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;take()方法充分体现了leader/follower多线程网络模型的思想以及ReentrantLock与Condition的配合运用，也是ScheduledThreadPoolExecutor实现任务调度的关键所在。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先通过ReentrantLock加锁，然后去取队首的任务（队首的任务由leader线程执行），如果已有leader线程则成为follower线程等待提拔为leader线程，如果没有leader线程则直接晋升为leader线程，等待达到执行时间后通过finishPoll()方法取出任务并执行，同时交出leader权限，提拔一个follower线程成为新的leader线程来执行下一个任务。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中的follower线程等待通过Condition.await()方法实现，leader线程的等待通过Condition.awaitNanos()实现，提拔一个follower线程成为新的leader线程通过Condition.signal()实现。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DelayedWorkQueue出列的方法还有poll方法，不过线程池只用到了take()方法，take()方法中还有一个出列动作的方法finishPoll()。</p>
+<h5 id="5-出列方法（finishPoll）"><a href="#5-出列方法（finishPoll）" class="headerlink" title="5. 出列方法（finishPoll）"></a>5. 出列方法（finishPoll）</h5><pre><code>private RunnableScheduledFuture&lt;?&gt; finishPoll(RunnableScheduledFuture&lt;?&gt; f) {
+    //将队列大小-1并赋值给s
+    int s = --size;
+    //取队尾任务x
+    RunnableScheduledFuture&lt;?&gt; x = queue[s];
+    //将队尾任务置为空
+    queue[s] = null;
+    //如果队尾和队首不是同一个任务，则进行移除排序
+    if (s != 0)
+        siftDown(0, x);
+    //将f在堆中的索引设为-1代表已取出，然后将任务返回
+    setIndex(f, -1);
+    return f;
+}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;take()方法会阻塞线程直到任务达到执行时间，达到执行时间后就会调用finishPoll()方法将任务取出队列。取出的思路是将队尾的任务放到队首，然后通过siftDown()进行重排序。</p>
+<h5 id="6-移除排序方法（siftDown）"><a href="#6-移除排序方法（siftDown）" class="headerlink" title="6. 移除排序方法（siftDown）"></a>6. 移除排序方法（siftDown）</h5><pre><code>private void siftDown(int k, RunnableScheduledFuture&lt;?&gt; key) {
+    //取队列长度的一半
+    int half = size &gt;&gt;&gt; 1;
+    //通过循环比较保证父节点不大于子节点
+    while (k &lt; half) {
+        //取k的左子节点作为child
+        int child = (k &lt;&lt; 1) + 1;
+        RunnableScheduledFuture&lt;?&gt; c = queue[child];
+        //取k的右子节点
+        int right = child + 1;
+        //如果右子节点在队列中并且左子节点大于右子节点，则取右子节点作为child
+        //目的是为了取左右子节点中较小的一个作为child
+        if (right &lt; size &amp;&amp; c.compareTo(queue[right]) &gt; 0)
+            c = queue[child = right];
+        //将key与子节点中较小的一个进行比较，如果key较小，说明满足最小堆要求，终止循环
+        if (key.compareTo(c) &lt;= 0)
+            break;
+        //否则将key与child交换位置，然后继续向下检查
+        queue[k] = c;
+        setIndex(c, k);
+        k = child;
+    }
+    queue[k] = key;
+    setIndex(key, k);
+}</code></pre>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月05日 10:09</p>
-        <p>原始链接： <a class="post-url" href="/J.U.C/ScheduledThreadPoolExecutor/" title="ScheduledThreadPoolExecutor">madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/</a></p>
+        <p>最后更新： 2019年07月10日 17:38</p>
+        <p>原始链接： <a class="post-url" href="/J.U.C/ScheduledThreadPoolExecutor/" title="ScheduledThreadPoolExecutor">despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/</a></p>
         <footer>
-            <a href="madlives.github.io">
-                <img src="/images/logo.png" alt="Despacito">
-                Despacito
+            <a href="despacitoyo.github.io">
+                <img src="/images/logo.png" alt="DespacitoYo">
+                DespacitoYo
             </a>
         </footer>
     </div>
@@ -285,7 +448,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/&title=《ScheduledThreadPoolExecutor》 — Despacito&pic=madlives.github.ioimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/&title=《ScheduledThreadPoolExecutor》 — DespacitoYo&pic=despacitoyo.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -295,22 +458,22 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/&title=《ScheduledThreadPoolExecutor》 — Despacito&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/&title=《ScheduledThreadPoolExecutor》 — DespacitoYo&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ScheduledThreadPoolExecutor》 — Despacito&url=madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/&via=madlives.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ScheduledThreadPoolExecutor》 — DespacitoYo&url=despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/&via=despacitoyo.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -320,7 +483,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=madlives.github.io/J.U.C/ScheduledThreadPoolExecutor/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -338,7 +501,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-创建ScheduledThreadPoolExecutor"><span class="post-toc-text">1. 创建ScheduledThreadPoolExecutor</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："><span class="post-toc-text">Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-newScheduledThreadPool"><span class="post-toc-text">1. newScheduledThreadPool</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-newSingleThreadScheduledExecutor"><span class="post-toc-text">2. newSingleThreadScheduledExecutor</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-核心思想"><span class="post-toc-text">2. 核心思想</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-核心方法"><span class="post-toc-text">3. 核心方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-schedule方法"><span class="post-toc-text">1. schedule方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-scheduleAtFixedRate方法"><span class="post-toc-text">2. scheduleAtFixedRate方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-scheduleWithFixedDelay方法"><span class="post-toc-text">3. scheduleWithFixedDelay方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-delayedExecute方法"><span class="post-toc-text">4. delayedExecute方法</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-重要内部类"><span class="post-toc-text">4. 重要内部类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-ScheduledFutureTask"><span class="post-toc-text">1. ScheduledFutureTask</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-DelayedWorkQueue"><span class="post-toc-text">2. DelayedWorkQueue</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-创建ScheduledThreadPoolExecutor"><span class="post-toc-text">1. 创建ScheduledThreadPoolExecutor</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："><span class="post-toc-text">Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-newScheduledThreadPool"><span class="post-toc-text">1. newScheduledThreadPool</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-newSingleThreadScheduledExecutor"><span class="post-toc-text">2. newSingleThreadScheduledExecutor</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-核心思想"><span class="post-toc-text">2. 核心思想</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-核心方法"><span class="post-toc-text">3. 核心方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-schedule方法"><span class="post-toc-text">1. schedule方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-scheduleAtFixedRate方法"><span class="post-toc-text">2. scheduleAtFixedRate方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-scheduleWithFixedDelay方法"><span class="post-toc-text">3. scheduleWithFixedDelay方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-delayedExecute方法"><span class="post-toc-text">4. delayedExecute方法</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-重要内部类"><span class="post-toc-text">4. 重要内部类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-ScheduledFutureTask"><span class="post-toc-text">1. ScheduledFutureTask</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-DelayedWorkQueue"><span class="post-toc-text">2. DelayedWorkQueue</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-入列方法（offer）"><span class="post-toc-text">1.入列方法（offer）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-扩容方法（grow）"><span class="post-toc-text">2. 扩容方法（grow）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-排序插入方法（siftUp）"><span class="post-toc-text">3. 排序插入方法（siftUp）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-等待获取队首方法（take），实现任务调度的核心"><span class="post-toc-text">4. 等待获取队首方法（take），实现任务调度的核心</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-出列方法（finishPoll）"><span class="post-toc-text">5. 出列方法（finishPoll）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#6-移除排序方法（siftDown）"><span class="post-toc-text">6. 移除排序方法（siftDown）</span></a></li></ol></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -376,7 +539,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
       <p>
         Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
         Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
-      &copy; 2019 Despacito<br>
+      &copy; 2019 DespacitoYo<br>
       </p>
     </div>
   </div>
@@ -385,7 +548,7 @@ public &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,
 <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script>
   var mihoConfig = {
-      root: "madlives.github.io",
+      root: "despacitoyo.github.io",
       animate: true,
       isHome: false,
       share: true,
