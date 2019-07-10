@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="DespacitoYo">
 <meta property="og:description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-10T09:44:54.145Z">
+<meta property="og:updated_time" content="2019-07-10T09:51:58.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ScheduledThreadPoolExecutor">
 <meta name="twitter:description" content="1. 创建ScheduledThreadPoolExecutor&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延">
@@ -128,16 +128,17 @@
       
             
             <h2 id="1-创建ScheduledThreadPoolExecutor"><a href="#1-创建ScheduledThreadPoolExecutor" class="headerlink" title="1. 创建ScheduledThreadPoolExecutor"></a>1. 创建ScheduledThreadPoolExecutor</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScheduledThreadPoolExecutor继承自ThreadPoolExecutor，实现了ScheduledExecutorService接口，在ThreadPoolExecutor的基础上增加了定时的功能，包括指定延时后执行任务和指定延时后执行任务。ScheduledThreadPoolExecutor的功能与Timer类似，但ScheduledThreadPoolExecutor功能更强大、更灵活。Timer对应的是单个后台线程，而ScheduledThreadPoolExecutor可以多线程执行，所以ScheduledThreadPoolExecutor是比Timer更优的选择。</p>
-<pre><code>public class ScheduledThreadPoolExecutor
-    extends ThreadPoolExecutor
-    implements ScheduledExecutorService {  
-    public ScheduledThreadPoolExecutor(int corePoolSize,
-                                   ThreadFactory threadFactory,
-                                   RejectedExecutionHandler handler) {
-        super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
-          new DelayedWorkQueue(), threadFactory, handler);
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledThreadPoolExecutor</span></span>
+<span class="class">    <span class="keyword">extends</span> <span class="title">ThreadPoolExecutor</span></span>
+<span class="class">    <span class="keyword">implements</span> <span class="title">ScheduledExecutorService</span> </span>{  
+    <span class="function"><span class="keyword">public</span> <span class="title">ScheduledThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span>
+<span class="function"><span class="params">                                   ThreadFactory threadFactory,</span></span>
+<span class="function"><span class="params">                                   RejectedExecutionHandler handler)</span> </span>{
+        <span class="keyword">super</span>(corePoolSize, Integer.MAX_VALUE, <span class="number">0</span>, NANOSECONDS,
+          <span class="keyword">new</span> DelayedWorkQueue(), threadFactory, handler);
     }
-}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从构造函数可以看出ScheduledThreadPoolExecutor还是调用的父类ThreadPoolExecutor的构造方式，其中最大线程数固定为Integer.MAX_VALUE，空闲时间固定为0，工作队列固定为DelayedWorkQueue。DelayedWorkQueue是一个无界队列，故最大线程数并没有什么意义。</p>
+}</code></pre>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从构造函数可以看出ScheduledThreadPoolExecutor还是调用的父类ThreadPoolExecutor的构造方式，其中最大线程数固定为Integer.MAX_VALUE，空闲时间固定为0，工作队列固定为DelayedWorkQueue。DelayedWorkQueue是一个无界队列，故最大线程数并没有什么意义。</p>
 <h4 id="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："><a href="#Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：" class="headerlink" title="Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法："></a>Executors工具类提供了几种ScheduledThreadPoolExecutor的创建方法：</h4><h4 id="1-newScheduledThreadPool"><a href="#1-newScheduledThreadPool" class="headerlink" title="1. newScheduledThreadPool"></a>1. newScheduledThreadPool</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只指定核心线程数，使用默认的线程工厂以及拒绝策略，最多创建corePoolSize个线程。</p>
 <pre><code>public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
     return new ScheduledThreadPoolExecutor(corePoolSize);
@@ -421,7 +422,7 @@ int parent = (n - 1) / 2; // 父节点，当然n要大于0，根节点是没有�
 }</code></pre>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月10日 17:44</p>
+        <p>最后更新： 2019年07月10日 17:51</p>
         <p>原始链接： <a class="post-url" href="/J.U.C/ScheduledThreadPoolExecutor/" title="ScheduledThreadPoolExecutor">despacitoyo.github.io/J.U.C/ScheduledThreadPoolExecutor/</a></p>
         <footer>
             <a href="despacitoyo.github.io">
